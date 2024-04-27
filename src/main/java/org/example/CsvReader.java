@@ -13,11 +13,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Класс CsvReader предоставляет методы для чтения данных из CSV файла.
+ */
 public class CsvReader {
 
   private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-  public static List<Person> ReadCsvIntoPersonList(String path, String regex){
+  /**
+   * Читает данные из CSV файла в список объектов Person.
+   * @param path  путь к файлу CSV
+   * @param regex разделитель для столбцов в строке CSV
+   * @return список объектов Person, содержащий данные из CSV файла
+   * @throws FileNotFoundException если указанный файл не был найден
+   * @throws RuntimeException если возникают ошибки ввода-вывода или если файл не найден
+   */
+  public static List<Person> ReadCsvIntoPersonList(String path, String regex) {
     List<Person> personList = new ArrayList<>();
 
     try (InputStream in =  CsvReader.class.getClassLoader().getResourceAsStream(path)) {
@@ -39,6 +50,12 @@ public class CsvReader {
     return personList;
   }
 
+  /**
+   * Преобразует строку CSV в объект Person.
+   * @param line  строка CSV, содержащая данные о персоне
+   * @param regex разделитель для столбцов в строке CSV
+   * @return объект Person, содержащий данные из строки CSV
+   */
   private static Person personMapper(String line, String regex){
     Random random = new Random();
     Map<String, Gender> gender = new HashMap<>(){
